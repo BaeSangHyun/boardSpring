@@ -9,7 +9,6 @@ import java.util.Map;
 
 @Repository
 public class BoardDao implements IBoardDao {
-    private static IBoardDao ourInstance;
 
     @Resource(name = "sqlSessionTemplate")
     private SqlSessionTemplate session;

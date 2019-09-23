@@ -33,7 +33,7 @@ public class PostController {
 
     @RequestMapping("postList")
     public String postList() {
-        return "/post/postList";
+        return "post/postList";
     }
 
     @RequestMapping(path = "postListJson", method = RequestMethod.GET)
