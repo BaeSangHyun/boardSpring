@@ -16,6 +16,7 @@ public class UserDao implements IUserDao {
 
     private UserDao() {}
 
+
     @Override
     public User getUser(Map map) {
         return session.selectOne("user.getUser", map);

@@ -8,20 +8,21 @@
     </resultMap>
 
     <select id="getAllPost" parameterType="hashmap" resultType="hashmap">
-        select a.*
-        from(select rownum rn , a.*
-            from( select postid, pa_postid, level, userId, reg_date, able,
-                case able when 'T' then title
-                          when 'F' then '삭제된 게시글 입니다'
-                end as title
-                from post
-                where boardid = #{boardId}
-                start with pa_postid is null
-                connect by prior postid = pa_postid
-                order siblings by postgn desc, postid
-                ) a
-            ) a
-        where a.rn between #{pageSize} * (#{page} - 1) + 1 and #{page} * #{pageSize}
+        select    a.*
+            from   (
+            select  a.*, level
+                 from (
+                    select  postid, pa_postid,  userId, reg_date, able, postgn, rownum rn,
+                            case able when 'T' then title
+                                      when 'F' then '삭제된 게시글 입니다'
+                             end as title
+                    from    post
+                    where   boardid = #{boardId}
+                    order by postid desc) a
+                 start with pa_postid is null
+                 connect by prior postid = pa_postid
+                 order siblings by postgn desc) a
+            where a.rn between #{pageSize} * (#{page} - 1) + 1 and #{page} * #{pageSize}
     </select>
 
     <select id="getCntPost" parameterType="int" resultType="int">
@@ -31,7 +32,7 @@
     </select>
 
     <select id="getPost" parameterType="int" resultType="hashmap" resultMap="data">
-        select *
+        select /*+ idex(a pk_post)*/ *
         from post
         where postid = #{postId}
     </select>

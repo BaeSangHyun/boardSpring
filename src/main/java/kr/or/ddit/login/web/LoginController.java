@@ -40,7 +40,7 @@ public class LoginController {
 
         if( user == null )
             return "login/login";
-        else {
+        else if(user.checkLoginValidate((String)param.get("userId"), (String)param.get("pass"))){
             HttpSession session = request.getSession();
             session.setAttribute("S_USER", user);
 

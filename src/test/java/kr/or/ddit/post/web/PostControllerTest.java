@@ -59,9 +59,12 @@ public class PostControllerTest extends PostControllerTestConfig {
     public void postFormReg() throws Exception {
 //        InputStream is = new FileInputStream(new File("d:\\dev\\upload\\2019\\08\\5aa42820-56b2-466a-8945-0efaa04ba120.png"));
 
-        InputStream is = getClass().getClassLoader().getResourceAsStream("brown.png");
+//        InputStream is = getClass().getClassLoader().getResourceAsStream("brown.png");
+        File file = new File("D:\\rangers\\ryan.png");
 
-        MockMultipartFile mockMultipartFile = new MockMultipartFile("file", "brown.png", "multipart/form-data", is);
+        InputStream is = new FileInputStream(file);
+
+        MockMultipartFile mockMultipartFile = new MockMultipartFile("files", "ryan.png", "multipart/form-data", is);
 
         mockMvc.perform(fileUpload("/post/postForm").file(mockMultipartFile).session(session)
                 .param("postId", "1")

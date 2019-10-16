@@ -146,4 +146,6 @@ Insert into POST_FILE (FILEID,POSTID,FILENM,REALFILEPATH) values (79,62,'moon.pn
 Insert into POST_FILE (FILEID,POSTID,FILENM,REALFILEPATH) values (80,62,'noimage.png','d:\springUpload\2019\09\9ed0dc70-9b2f-468f-931d-3e1f041f7f2be.png');
 Insert into POST_FILE (FILEID,POSTID,FILENM,REALFILEPATH) values (81,63,'ryan.png','d:\springUpload\2019\09\8fb56dc4-abad-4137-95ce-2fcbcacbb357n.png');
 
+
+
 commit;

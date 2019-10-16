@@ -1,12 +1,17 @@
 package kr.or.ddit.user.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import kr.or.ddit.sha256.KISA_SHA256;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class User {
+    private static final Logger logger = LoggerFactory.getLogger(User.class);
+
     private String userId;
     private String userNm;
     private String pass;
@@ -44,7 +49,7 @@ public class User {
     }
 
     public void setPass(String pass) {
-        this.pass = pass;
+        this.pass = KISA_SHA256.encrypt(pass);
     }
 
     public Date getReg_dt() {
@@ -126,5 +131,14 @@ public class User {
                 ", realFileName='" + realFileName + '\'' +
                 ", realFileName2='" + realFileName2 + '\'' +
                 '}';
+    }
+
+    public boolean checkLoginValidate(String userId, String pass) {
+        //암호화 문장끼리 비교
+        logger.debug("pass : {}", KISA_SHA256.encrypt(pass));
+        if(userId.equals(this.userId) && KISA_SHA256.encrypt(pass).equals(this.pass))
+//        if(userId.equals(this.userId) && pass.equals(this.pass))
+            return true;
+        return false;
     }
 }
