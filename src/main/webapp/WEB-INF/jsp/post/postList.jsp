@@ -64,9 +64,7 @@
 
                     $("#postListDiv").html(html[0]);
                     $(".pagination").html(html[1]);
-
                 }
-
             })
         }
 
